@@ -127,3 +127,53 @@ function populateHighScore() {
         highScoreList.appendChild(li);
     }
 }
+// Function that modifies the quiz contet and question counter.
+function questionModifier(i) {
+    if ((quizTimeRemaining > 0) && currentQuestionCount < quizQuestions.length) {
+        questionTitle.innerText = quizQuestions[i].questionTitle;
+        answerButton1.innerText = quizQuestions[i].answer1;
+        answerButton2.innerText = quizQuestions[i].answer2;
+        answerButton3.innerText = quizQuestions[i].answer3;
+        answerButton4.innerText = quizQuestions[i].answer4;
+    } else {
+        return;
+    }
+}
+
+function answerQuestion(event) {
+    event.preventDefault();
+    let i = currentQuestionCount;
+    const targetButton = event.target.classList.contains('answerButton');
+    if (targetButton) {
+        const targetAnswerID = event.target.id;
+        if (targetAnswerID === quizQuestions[i].correctAnswer) {
+            // This function executes for correct answers.
+            score++;
+            currentQuestionCount++;
+            questionModifier(currentQuestionCount);
+            // feedback text to HTML
+            if (submissionFeedback.classList.contains('d-none')) {
+                submissionFeedback.classList.remove('d-none');
+                submissionFeedback.textContent = "Correct!";
+            } else {
+                submissionFeedback.textContent = "Correct!";
+            }
+        } else if (targetAnswerID !== quizQuestions[i].correctAnswer) {
+            // This function executes for incorrect answers.
+            currentQuestionCount++;
+            questionModifier(currentQuestionCount);
+            // Add answer feedback text to HTML
+            if (submissionFeedback.classList.contains('d-none')) {
+                submissionFeedback.classList.remove('d-none');
+                submissionFeedback.textContent = "Incorrect";
+            } else {
+                submissionFeedback.textContent = "Incorrect";
+            }
+            // subtract time from quiz timer
+            quizTimeRemaining = quizTimeRemaining - 10;
+        }
+    } else {
+        // This executes for non button clicks.
+        return
+    }
+}
