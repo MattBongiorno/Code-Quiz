@@ -103,3 +103,27 @@ function quizTimer() {
         document.getElementById('finalScoreSpan').textContent = finalScore;
     }
 }
+// high score function
+function populateHighScore() {
+    highScores = JSON.parse(localStorage.getItem('highScores'));
+    // Add compare and sort function
+    function compare(a, b) {
+        const scoreA = parseInt(a.score);
+        const scoreB = parseInt(b.score);
+        let comparison = 0;
+        if (scoreA > scoreB) {
+            comparison = 1;
+        } else if (scoreA < scoreB) {
+            comparison = -1;
+        } else {
+            comparison = 0;
+        }
+        return comparison * -1;
+    };
+    highScores.sort(compare);
+    for (i = 0; i < highScores.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = `${highScores[i].initials}: ${highScores[i].score}`
+        highScoreList.appendChild(li);
+    }
+}
