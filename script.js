@@ -16,7 +16,7 @@ const enterScoreCard = document.getElementById('enterScoreCard');
 const highScoreCard = document.getElementById('highScoreCard'); // Quiz questions in an object array sourced from several websites.
 const quizQuestions = [{
         questionTitle: "Which of these values qualifies as a string?",
-        answer1: "string? my cat loves string",
+        answer1: "string? my cat loves string!",
         answer2: "42",
         answer3: "true",
         answer4: "false",
@@ -177,3 +177,58 @@ function answerQuestion(event) {
         return
     }
 }
+// Begin quiz button function
+startQuizButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        introCard.classList.add('d-none');
+        questionCard.classList.remove('d-none');
+        // Start timer
+        setInterval(quizTimer, 1000);
+        // Initiate quiz
+        questionModifier(currentQuestionCount);
+    })
+    // Add event listener for answering questions
+document.querySelector('div#questionCard').addEventListener('click', answerQuestion);
+// Even listener for score submission
+document.getElementById('submitScore').addEventListener('click', function(event) {
+        event.preventDefault();
+        highScores = JSON.parse(localStorage.getItem('highScores'));
+        let scoreInitials = document.querySelector('input#initialInput').value;
+        highScores.push({ initials: scoreInitials, score: finalScore });
+        localStorage.setItem('highScores', JSON.stringify(highScores));
+        populateHighScore();
+        enterScoreCard.classList.add('d-none');
+        highScoreCard.classList.remove('d-none');
+    })
+    // Add event listener for clearing high score
+document.getElementById('clearScoresButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        highScores = JSON.parse(localStorage.getItem('highScores'));
+        highScores = [];
+        localStorage.setItem('highScores', JSON.stringify(highScores));
+        while (highScoreList.hasChildNodes()) {
+            highScoreList.removeChild(highScoreList.firstChild);
+        }
+    })
+    // Add event listener to restart quiz
+document.getElementById('restartQuizButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        location.reload();
+    })
+    // Add event listener for checking High Scores
+document.getElementById('viewHighScores').addEventListener('click', function(event) {
+    event.preventDefault();
+    populateHighScore();
+    if (!introCard.classList.contains('d-none')) {
+        introCard.classList.add('d-none');
+    }
+    if (!questionCard.classList.contains('d-none')) {
+        questionCard.classList.add('d-none');
+    }
+    if (!enterScoreCard.classList.contains('d-none')) {
+        enterScoreCard.classList.add('d-none');
+    }
+    if (highScoreCard.classList.contains('d-none')) {
+        highScoreCard.classList.remove('d-none');
+    }
+})
