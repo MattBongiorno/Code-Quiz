@@ -79,3 +79,27 @@ const quizQuestions = [{
         correctAnswer: "2"
     }
 ]
+let quizTimeRemaining = 60;
+let currentQuestionCount = 0;
+let score = 0;
+let finalScore = 0;
+// Timer function
+function quizTimer() {
+    if ((currentQuestionCount < (quizQuestions.length) && quizTimeRemaining > 0)) {
+        quizTimeRemaining--;
+        timerDisplay.textContent = quizTimeRemaining;
+    } else {
+        timerDisplay.textContent = quizTimeRemaining;
+        clearTimeout();
+        questionCard.classList.add('d-none');
+        if (highScoreCard.classList.contains('d-none')) {
+            enterScoreCard.classList.remove('d-none');
+        }
+        if (score === 0) {
+            quizTimeRemaining = 0;
+            timerDisplay.textContent = quizTimeRemaining;
+        }
+        finalScore = score + quizTimeRemaining;
+        document.getElementById('finalScoreSpan').textContent = finalScore;
+    }
+}
