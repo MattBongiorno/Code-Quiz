@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+
+    <title>Code Quiz</title>
+</head>
+
+<body>
+    <main class="container">
+        <div class="row mt-4">
+            <div class="col-6"><a href="#" id="viewHighScores">View Highscores</a></div>
+            <div class="col-6 d-flex justify-content-end">Time: <span id="timeLeft">60</span></div>
+        </div>
+        <!-- Instructions card for quiz -->
+        <div class="row" id="introCard">
+            <div class="col-12 card border-0">
+                <div class="card-body col-12 col-md-8 offset-md-2">
+                    <h2>Coding Quiz Challenge</h2>
+                    <p>You have 60 seconds to answer 10 questions. You will receive one point for every correct answer and for every second left on the clock.</p>
+                    <button class="btn btn-primary" id="startQuizButton">Begin the Quiz</button>
+                </div>
+            </div>
